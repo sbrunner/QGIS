@@ -317,10 +317,12 @@ QStringList QgsServerProjectUtils::wmsOutputCrsList( const QgsProject &project )
 
 QString QgsServerProjectUtils::serviceUrl( const QString &service, const QgsServerRequest &request, const QgsServerSettings &settings )
 {
+  QgsMessageLog.logMessage( QStringLiteral( "Service URL %1" ).arg( &service ), "qgsserverprojectutils", QgsMessageLog.INFO )
   const QString serviceUpper = service.toUpper();
   QString url = settings.serviceUrl( serviceUpper );
   if ( ! url.isEmpty() )
   {
+    QgsMessageLog.logMessage( QStringLiteral( "Service URL %1 from settings" ).arg( &service ), "qgsserverprojectutils", QgsMessageLog.INFO )
     return url;
   }
 
@@ -344,11 +346,13 @@ QString QgsServerProjectUtils::serviceUrl( const QString &service, const QgsServ
   url = request.header( header );
   if ( ! url.isEmpty() )
   {
+    QgsMessageLog.logMessage( QStringLiteral( "Service URL %1 from %2 header" ).arg( service ).arg( header ), "qgsserverprojectutils", QgsMessageLog.INFO )
     return url;
   }
   url = request.header( QgsServerRequest::RequestHeader::X_QGIS_SERVICE_URL );
   if ( ! url.isEmpty() )
   {
+    QgsMessageLog.logMessage( QStringLiteral( "Service URL %1 from global service URL header" ).arg( service ), "qgsserverprojectutils", QgsMessageLog.INFO )
     return url;
   }
 
@@ -418,6 +422,7 @@ QString QgsServerProjectUtils::serviceUrl( const QString &service, const QgsServ
   {
     urlQUrl.setQuery( NULL );
   }
+  QgsMessageLog.logMessage( QStringLiteral( "Service URL %1 from environment: %s" ).arg( service ).arg( urlQUrl.url() ), "qgsserverprojectutils", QgsMessageLog.INFO )
   return urlQUrl.url();
 }
 
