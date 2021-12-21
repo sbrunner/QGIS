@@ -429,10 +429,13 @@ QString QgsServerProjectUtils::serviceUrl( const QString &service, const QgsServ
 QString QgsServerProjectUtils::wmsServiceUrl( const QgsProject &project, const  QgsServerRequest &request, const QgsServerSettings &settings )
 {
   QString url = project.readEntry( QStringLiteral( "WMSUrl" ), QStringLiteral( "/" ), "" );
+  QgsMessageLog.logMessage( QStringLiteral( "Service URL from project %1" ).arg( url ), QStringLiteral( "Server" ) )
   if ( url.isEmpty() )
   {
+    QgsMessageLog.logMessage( QStringLiteral( "Service URL out of project" ), QStringLiteral( "Server" ) )
     url = serviceUrl( QStringLiteral( "WMS" ), request, settings );
   }
+  QgsMessageLog.logMessage( QStringLiteral( "Service URL finnaly %1" ).arg( url ), QStringLiteral( "Server" ) )
   return url;
 }
 
