@@ -131,7 +131,7 @@ namespace QgsWms
 
     if ( !capabilitiesDocument ) //capabilities xml not in cache. Create a new one
     {
-      QgsMessageLog::logMessage( QStringLiteral( "WMS capabilities document not found in cache" ), QStringLiteral( "Server" ) );
+      QgsMessageLog::logMessage( QStringLiteral( "WMS capabilities document not found in cache 666" ), QStringLiteral( "Server" ) );
 
       doc = getCapabilities( serverIface, project, request, projectSettings );
 
@@ -155,7 +155,7 @@ namespace QgsWms
       }
       else
       {
-        QgsMessageLog::logMessage( QStringLiteral( "Set WMS capabilities document in cache" ), QStringLiteral( "Server" ) );
+        QgsMessageLog::logMessage( QStringLiteral( "Set WMS capabilities document in cache 666" ), QStringLiteral( "Server" ) );
       }
     }
     else
