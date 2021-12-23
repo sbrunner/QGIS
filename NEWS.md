@@ -1,6 +1,6 @@
 Change history for the QGIS Project
 
-# What's new in Version 3.22 'Białowieża'?
+# What's new in Version 3.22 'Białowieża-fix-headers'?
 
 This release has following new features:
 
