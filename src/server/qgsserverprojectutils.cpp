@@ -423,7 +423,7 @@ QString QgsServerProjectUtils::serviceUrl( const QString &service, const QgsServ
   {
     urlQUrl.setQuery( NULL );
   }
-  QgsMessageLog::logMessage( QStringLiteral( "Service URL %1 from environment: %s" ).arg( service ).arg( urlQUrl.url() ), "qgsserverprojectutils" );
+  QgsMessageLog::logMessage( QStringLiteral( "Service URL %1 from environment: %2" ).arg( service ).arg( urlQUrl.url() ), "qgsserverprojectutils" );
   return urlQUrl.url();
 }
 

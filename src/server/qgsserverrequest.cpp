@@ -67,6 +67,7 @@ QString QgsServerRequest::methodToString( const QgsServerRequest::Method &method
 
 QString QgsServerRequest::header( const QString &name ) const
 {
+  QgsMessageLog::logMessage( QStringLiteral( "%1=%2" ).arg( name ).arg( mHeaders.value( name ) ), "QgsServerRequest::header" );
   return mHeaders.value( name );
 }
 
