@@ -19,6 +19,7 @@
 
 #include "qgsserverrequest.h"
 #include <QUrlQuery>
+#include "qgsmessagelog.h"
 
 
 QgsServerRequest::QgsServerRequest( const QString &url, Method method, const Headers &headers )
@@ -79,6 +80,7 @@ QString QgsServerRequest::header( const QgsServerRequest::RequestHeader &headerE
 
 void QgsServerRequest::setHeader( const QString &name, const QString &value )
 {
+  QgsMessageLog::logMessage( QStringLiteral( "%1=%2" ).arg( name ).arg( mHeaders.value( name ) ), "QgsServerRequest::setHeader" );
   mHeaders.insert( name, value );
 }
 
