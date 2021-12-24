@@ -75,7 +75,7 @@ QString QgsServerRequest::header( const QString &name ) const
 
 QString QgsServerRequest::header( const QgsServerRequest::RequestHeader &headerEnum ) const
 {
-  QgsMessageLog::logMessage( QStringLiteral( "%1" ).arg( mRequestHeaderConv ) ), "QgsServerRequest::header" );
+  QgsMessageLog::logMessage( QStringLiteral( "%1" ).arg( mRequestHeaderConv.count() ) ), "QgsServerRequest::header" );
   return header( mRequestHeaderConv[ headerEnum ] );
 }
 
