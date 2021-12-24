@@ -28,7 +28,7 @@
 //
 
 QgsFcgiServerResponse::QgsFcgiServerResponse( QgsServerRequest::Method method )
-  : mMethod( method )
+  : QgsServerRequest( "", method ),
 {
   mBuffer.open( QIODevice::ReadWrite );
   setDefaultHeaders();
