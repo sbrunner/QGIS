@@ -176,7 +176,7 @@ namespace QgsWms
 
     // Get service URL
     QUrl href = serviceUrl( request, project, *serverIface->serverSettings() );
-    QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 3 Service URL" ), "wmsgetcapabilities", QgsMessageLog::INFO );
+    QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 3 Service URL" ), "wmsgetcapabilities" );
     QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 3 Service URL" ), QStringLiteral( "Server" ) );
 
     //href needs to be a prefix
@@ -288,12 +288,12 @@ namespace QgsWms
     addKeywordListElement( project, doc, serviceElem );
 
     QString onlineResource = QgsServerProjectUtils::owsServiceOnlineResource( *project );
-    QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 4a Service URL %1" ).arg( onlineResource ), "wmsgetcapabilities", QgsMessageLog::INFO )
+    QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 4a Service URL %1" ).arg( onlineResource ), "wmsgetcapabilities" )
     QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 4a Service URL %1" ).arg( onlineResource ), QStringLiteral( "Server" ) )
     if ( onlineResource.isEmpty() )
     {
       onlineResource = serviceUrl( request, project, *serverSettings ).toString();
-      QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 4b Service URL" ), "wmsgetcapabilities", QgsMessageLog::INFO )
+      QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 4b Service URL" ), "wmsgetcapabilities" )
       QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 4b Service URL" ), QStringLiteral( "Server" ) )
     }
     QDomElement onlineResourceElem = doc.createElement( QStringLiteral( "OnlineResource" ) );
@@ -430,7 +430,7 @@ namespace QgsWms
 
     // Get service URL
     QUrl href = serviceUrl( request, project, *serverIface->serverSettings() );
-    QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 1 Service URL" ), "wmsgetcapabilities", QgsMessageLog::INFO );
+    QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 1 Service URL" ), "wmsgetcapabilities" );
     QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 1 Service URL" ), QStringLiteral( "Server" ) );
 
     //href needs to be a prefix
@@ -1300,7 +1300,7 @@ namespace QgsWms
     {
       // Get service URL
       QUrl href = serviceUrl( request, project, *settings );
-      QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 2 Service URL" ), "wmsgetcapabilities", QgsMessageLog::INFO );
+      QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 2 Service URL" ), "wmsgetcapabilities" );
       QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 2 Service URL" ), QStringLiteral( "Server" ) );
 
       //href needs to be a prefix

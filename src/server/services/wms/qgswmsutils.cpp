@@ -32,7 +32,7 @@ namespace QgsWms
 {
   QUrl serviceUrl( const QgsServerRequest &request, const QgsProject *project, const QgsServerSettings &settings )
   {
-    QgsMessageLog::logMessage( QStringLiteral( "QgsWms Service URL" ), "QgsWms", QgsMessageLog::INFO );
+    QgsMessageLog::logMessage( QStringLiteral( "QgsWms Service URL" ), "QgsWms" );
     QgsMessageLog::logMessage( QStringLiteral( "QgsWms Service URL" ), QStringLiteral( "Server" ) );
     QUrl href;
     href.setUrl( QgsServerProjectUtils::wmsServiceUrl( project ? *project : *QgsProject::instance(), request, settings ) );
