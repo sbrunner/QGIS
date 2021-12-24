@@ -46,6 +46,8 @@ QgsServerRequest::QgsServerRequest( const QUrl &url, Method method, const Header
   mRequestHeaderConv.insert( X_QGIS_WCS_SERVICE_URL, QStringLiteral( "X-Qgis-Wcs-Service-Url" ) );
   mRequestHeaderConv.insert( X_QGIS_WMTS_SERVICE_URL, QStringLiteral( "X-Qgis-Wmts-Service-Url" ) );
 
+  QgsMessageLog::logMessage( QStringLiteral( "%1" ).arg( mRequestHeaderConv.count() ), "QgsServerRequest::init 1" );
+
   mParams.load( QUrlQuery( url ) );
 }
 
@@ -58,6 +60,7 @@ QgsServerRequest::QgsServerRequest( const QgsServerRequest &other )
   , mParams( other.mParams )
   , mRequestHeaderConv( other.mRequestHeaderConv )
 {
+  QgsMessageLog::logMessage( QStringLiteral( "%1" ).arg( mRequestHeaderConv.count() ), "QgsServerRequest::init 2" );
 }
 
 QString QgsServerRequest::methodToString( const QgsServerRequest::Method &method )
