@@ -436,7 +436,7 @@ QString QgsServerProjectUtils::wmsServiceUrl( const QgsProject &project, const  
     QgsMessageLog::logMessage( QStringLiteral( "Service URL out of project" ), QStringLiteral( "Server" ) );
     url = serviceUrl( QStringLiteral( "WMS" ), request, settings );
   }
-  QgsMessageLog::logMessage( QStringLiteral( "Service URL finally %1" ).arg( url ), QStringLiteral( "Server" ) )
+  QgsMessageLog::logMessage( QStringLiteral( "Service URL finally %1" ).arg( url ), QStringLiteral( "Server" ) );
   return url;
 }
 
