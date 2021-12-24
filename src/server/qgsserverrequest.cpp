@@ -22,19 +22,7 @@
 #include "qgsmessagelog.h"
 
 
-QgsServerRequest::QgsServerRequest( const QString &url, Method method, const Headers &headers )
-  : QgsServerRequest( QUrl( url ), method, headers )
-{
-  QgsMessageLog::logMessage( QStringLiteral( "%1" ).arg( mRequestHeaderConv.count() ), "QgsServerRequest::init 0" );
-}
-
-QgsServerRequest::QgsServerRequest( const QUrl &url, Method method, const Headers &headers )
-  : mUrl( url )
-  , mOriginalUrl( url )
-  , mBaseUrl( url )
-  , mMethod( method )
-  , mHeaders( headers )
-  , mRequestHeaderConv()
+QgsServerRequest::QgsServerRequest( )
 {
   mRequestHeaderConv.insert( HOST, QStringLiteral( "Host" ) );
   mRequestHeaderConv.insert( FORWARDED, QStringLiteral( "Forwarded" ) );
@@ -47,6 +35,24 @@ QgsServerRequest::QgsServerRequest( const QUrl &url, Method method, const Header
   mRequestHeaderConv.insert( X_QGIS_WCS_SERVICE_URL, QStringLiteral( "X-Qgis-Wcs-Service-Url" ) );
   mRequestHeaderConv.insert( X_QGIS_WMTS_SERVICE_URL, QStringLiteral( "X-Qgis-Wmts-Service-Url" ) );
 
+  QgsMessageLog::logMessage( QStringLiteral( "%1" ).arg( mRequestHeaderConv.count() ), "QgsServerRequest::init -1" );
+}
+
+QgsServerRequest::QgsServerRequest( const QString &url, Method method, const Headers &headers )
+  : QgsServerRequest( QUrl( url ), method, headers )
+{
+  QgsMessageLog::logMessage( QStringLiteral( "%1" ).arg( mRequestHeaderConv.count() ), "QgsServerRequest::init 0" );
+}
+
+QgsServerRequest::QgsServerRequest( const QUrl &url, Method method, const Headers &headers )
+  : QgsServerRequest()
+  , mUrl( url )
+  , mOriginalUrl( url )
+  , mBaseUrl( url )
+  , mMethod( method )
+  , mHeaders( headers )
+  , mRequestHeaderConv()
+{
   QgsMessageLog::logMessage( QStringLiteral( "%1" ).arg( mRequestHeaderConv.count() ), "QgsServerRequest::init 1" );
 
   mParams.load( QUrlQuery( url ) );

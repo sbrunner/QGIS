@@ -255,11 +255,9 @@ void QgsFcgiServerRequest::printRequestInfos( const QUrl &url )
 
 
   QgsMessageLog::logMessage( QStringLiteral( "Request URL: %2" ).arg( url.url() ), QStringLiteral( "Server" ), Qgis::MessageLevel::Info );
+
   QgsMessageLog::logMessage( QStringLiteral( "Environment:" ), QStringLiteral( "Server" ), Qgis::MessageLevel::Info );
   QgsMessageLog::logMessage( QStringLiteral( "------------------------------------------------" ), QStringLiteral( "Server" ), Qgis::MessageLevel::Info );
-  QgsMessageLog::logMessage( QStringLiteral( "Headers:" ), QStringLiteral( "Server" ), Qgis::MessageLevel::Info );
-  QgsMessageLog::logMessage( QStringLiteral( "------------------------------------------------" ), QStringLiteral( "Server" ), Qgis::MessageLevel::Info );
-
   for ( const auto &envVar : envVars )
   {
     if ( getenv( envVar.toStdString().c_str() ) )
@@ -267,6 +265,9 @@ void QgsFcgiServerRequest::printRequestInfos( const QUrl &url )
       QgsMessageLog::logMessage( QStringLiteral( "%1: %2" ).arg( envVar ).arg( QString( getenv( envVar.toStdString().c_str() ) ) ), QStringLiteral( "Server" ), Qgis::MessageLevel::Info );
     }
   }
+
+  QgsMessageLog::logMessage( QStringLiteral( "Headers:" ), QStringLiteral( "Server" ), Qgis::MessageLevel::Info );
+  QgsMessageLog::logMessage( QStringLiteral( "------------------------------------------------" ), QStringLiteral( "Server" ), Qgis::MessageLevel::Info );
   for ( const auto &header : headers )
   {
     if ( ! this->header( header ).isEmpty() )
