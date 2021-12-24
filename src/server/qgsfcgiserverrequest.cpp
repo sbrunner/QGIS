@@ -251,7 +251,7 @@ void QgsFcgiServerRequest::printRequestInfos( const QUrl &url )
     QStringLiteral( "X-Forwarded-Host" ),
     QStringLiteral( "X-Forwarded-Proto" ),
     QStringLiteral( "Host" )
-  }
+  };
 
 
   QgsMessageLog::logMessage( QStringLiteral( "Request URL: %2" ).arg( url.url() ), QStringLiteral( "Server" ), Qgis::MessageLevel::Info );
