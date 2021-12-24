@@ -273,7 +273,7 @@ void QgsFcgiServerRequest::printRequestInfos( const QUrl &url )
     {
       QgsMessageLog::logMessage( QStringLiteral( "%1: %2" ).arg( header ).arg( this->header( header ) ), QStringLiteral( "Server" ), Qgis::MessageLevel::Info );
       // Fill the headers dictionary
-      this.setHeader( header, this->header( header ) );
+      this->setHeader( header, this->header( header ) );
     }
   }
 }
