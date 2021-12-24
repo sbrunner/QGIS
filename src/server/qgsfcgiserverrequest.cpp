@@ -25,7 +25,7 @@
 #include <QDebug>
 
 QgsFcgiServerRequest::QgsFcgiServerRequest()
-  : QgsServerRequest( ),
+  : QgsServerRequest( )
 {
   // Get the REQUEST_URI from the environment
   QString uri = getenv( "REQUEST_URI" );
