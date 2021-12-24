@@ -250,7 +250,7 @@ void QgsFcgiServerRequest::printRequestInfos( const QUrl &url )
     QStringLiteral( "Forwarded" ),
     QStringLiteral( "X-Forwarded-Host" ),
     QStringLiteral( "X-Forwarded-Proto" ),
-    QStringLiteral( "Host" ),
+    QStringLiteral( "Host" )
   }
 
 
