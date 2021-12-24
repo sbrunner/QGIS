@@ -62,7 +62,7 @@ QgsServerRequest::QgsServerRequest( const QgsServerRequest &other )
   QgsMessageLog::logMessage( QStringLiteral( "%1" ).arg( mRequestHeaderConv.count() ), "QgsServerRequest::init 2" );
 }
 
-QgsServerRequest::init( )
+void QgsServerRequest::init( )
 {
   mRequestHeaderConv.insert( HOST, QStringLiteral( "Host" ) );
   mRequestHeaderConv.insert( FORWARDED, QStringLiteral( "Forwarded" ) );
