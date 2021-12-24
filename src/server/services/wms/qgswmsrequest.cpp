@@ -18,6 +18,7 @@
  ***************************************************************************/
 
 #include "qgswmsrequest.h"
+#include "qgsmessagelog.h"
 
 namespace QgsWms
 {
