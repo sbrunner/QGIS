@@ -288,13 +288,13 @@ namespace QgsWms
     addKeywordListElement( project, doc, serviceElem );
 
     QString onlineResource = QgsServerProjectUtils::owsServiceOnlineResource( *project );
-    QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 4a Service URL %1" ).arg( onlineResource ), "wmsgetcapabilities" )
-    QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 4a Service URL %1" ).arg( onlineResource ), QStringLiteral( "Server" ) )
+    QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 4a Service URL %1" ).arg( onlineResource ), "wmsgetcapabilities" );
+    QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 4a Service URL %1" ).arg( onlineResource ), QStringLiteral( "Server" ) );
     if ( onlineResource.isEmpty() )
     {
       onlineResource = serviceUrl( request, project, *serverSettings ).toString();
-      QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 4b Service URL" ), "wmsgetcapabilities" )
-      QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 4b Service URL" ), QStringLiteral( "Server" ) )
+      QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 4b Service URL" ), "wmsgetcapabilities" );
+      QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 4b Service URL" ), QStringLiteral( "Server" ) );
     }
     QDomElement onlineResourceElem = doc.createElement( QStringLiteral( "OnlineResource" ) );
     onlineResourceElem.setAttribute( QStringLiteral( "xmlns:xlink" ), QStringLiteral( "http://www.w3.org/1999/xlink" ) );
