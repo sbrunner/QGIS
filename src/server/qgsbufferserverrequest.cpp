@@ -18,6 +18,7 @@
  ***************************************************************************/
 
 #include "qgsbufferserverrequest.h"
+#include "qgsmessagelog.h"
 
 QgsBufferServerRequest::QgsBufferServerRequest( const QString &url, Method method, const QgsServerRequest::Headers &headers, QByteArray *data )
   : QgsServerRequest( url, method, headers )
