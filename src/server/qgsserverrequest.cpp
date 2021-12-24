@@ -25,6 +25,7 @@
 QgsServerRequest::QgsServerRequest( const QString &url, Method method, const Headers &headers )
   : QgsServerRequest( QUrl( url ), method, headers )
 {
+  QgsMessageLog::logMessage( QStringLiteral( "%1" ).arg( mRequestHeaderConv.count() ), "QgsServerRequest::init 0" );
 }
 
 QgsServerRequest::QgsServerRequest( const QUrl &url, Method method, const Headers &headers )
