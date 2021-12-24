@@ -176,8 +176,8 @@ namespace QgsWms
 
     // Get service URL
     QUrl href = serviceUrl( request, project, *serverIface->serverSettings() );
-    QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 3 Service URL" ), "wmsgetcapabilities", QgsMessageLog::INFO )
-    QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 3 Service URL" ), QStringLiteral( "Server" ) )
+    QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 3 Service URL" ), "wmsgetcapabilities", QgsMessageLog::INFO );
+    QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 3 Service URL" ), QStringLiteral( "Server" ) );
 
     //href needs to be a prefix
     QString hrefString = href.toString();
@@ -430,8 +430,8 @@ namespace QgsWms
 
     // Get service URL
     QUrl href = serviceUrl( request, project, *serverIface->serverSettings() );
-    QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 1 Service URL" ), "wmsgetcapabilities", QgsMessageLog::INFO )
-    QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 1 Service URL" ), QStringLiteral( "Server" ) )
+    QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 1 Service URL" ), "wmsgetcapabilities", QgsMessageLog::INFO );
+    QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 1 Service URL" ), QStringLiteral( "Server" ) );
 
     //href needs to be a prefix
     QString hrefString = href.toString();
@@ -1300,8 +1300,8 @@ namespace QgsWms
     {
       // Get service URL
       QUrl href = serviceUrl( request, project, *settings );
-      QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 2 Service URL" ), "wmsgetcapabilities", QgsMessageLog::INFO )
-      QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 2 Service URL" ), QStringLiteral( "Server" ) )
+      QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 2 Service URL" ), "wmsgetcapabilities", QgsMessageLog::INFO );
+      QgsMessageLog::logMessage( QStringLiteral( "wmsgetcapabilities 2 Service URL" ), QStringLiteral( "Server" ) );
 
       //href needs to be a prefix
       QString hrefString = href.toString();
