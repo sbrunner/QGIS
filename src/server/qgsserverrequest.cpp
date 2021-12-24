@@ -60,6 +60,7 @@ QgsServerRequest::QgsServerRequest( const QgsServerRequest &other )
   , mParams( other.mParams )
   , mRequestHeaderConv( other.mRequestHeaderConv )
 {
+  QgsMessageLog::logMessage( QStringLiteral( "%1" ).arg( typeid( other ).name() ), "QgsServerRequest::init 2" );
   QgsMessageLog::logMessage( QStringLiteral( "%1" ).arg( mRequestHeaderConv.count() ), "QgsServerRequest::init 2" );
 }
 
@@ -78,6 +79,7 @@ QString QgsServerRequest::header( const QString &name ) const
 
 QString QgsServerRequest::header( const QgsServerRequest::RequestHeader &headerEnum ) const
 {
+  QgsMessageLog::logMessage( QStringLiteral( "%1" ).arg( typeid( this ).name() ), "QgsServerRequest::header" );
   QgsMessageLog::logMessage( QStringLiteral( "%1" ).arg( mRequestHeaderConv.count() ), "QgsServerRequest::header" );
   return header( mRequestHeaderConv[ headerEnum ] );
 }

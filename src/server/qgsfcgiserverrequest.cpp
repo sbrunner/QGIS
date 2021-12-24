@@ -27,6 +27,8 @@
 QgsFcgiServerRequest::QgsFcgiServerRequest()
   : QgsServerRequest( )
 {
+  QgsMessageLog::logMessage( QStringLiteral( "init" ), "QgsFcgiServerRequest" );
+
   // Get the REQUEST_URI from the environment
   QString uri = getenv( "REQUEST_URI" );
 

@@ -24,6 +24,7 @@ namespace QgsWms
   QgsWmsRequest::QgsWmsRequest( const QgsServerRequest &other )
     : QgsServerRequest( other )
   {
+    QgsMessageLog::logMessage( QStringLiteral( "init" ), "QgsServerRequest" );
     init();
   }
 

@@ -22,6 +22,7 @@
 QgsBufferServerRequest::QgsBufferServerRequest( const QString &url, Method method, const QgsServerRequest::Headers &headers, QByteArray *data )
   : QgsServerRequest( url, method, headers )
 {
+  QgsMessageLog::logMessage( QStringLiteral( "init1" ), "QgsBufferServerRequest" );
   if ( data )
   {
     mData = *data;
@@ -31,6 +32,7 @@ QgsBufferServerRequest::QgsBufferServerRequest( const QString &url, Method metho
 QgsBufferServerRequest::QgsBufferServerRequest( const QUrl &url, Method method, const QgsServerRequest::Headers &headers, QByteArray *data )
   : QgsServerRequest( url, method, headers )
 {
+  QgsMessageLog::logMessage( QStringLiteral( "init2" ), "QgsBufferServerRequest" );
   if ( data )
   {
     mData = *data;
