@@ -317,13 +317,13 @@ QStringList QgsServerProjectUtils::wmsOutputCrsList( const QgsProject &project )
 
 QString QgsServerProjectUtils::serviceUrl( const QString &service, const QgsServerRequest &request, const QgsServerSettings &settings )
 {
-  QgsMessageLog::logMessage( QStringLiteral( "Service URL %1" ).arg( &service ), "qgsserverprojectutils", QgsMessageLog::INFO )
-  QgsMessageLog::logMessage( QStringLiteral( "Service URL %1" ).arg( &service ), QStringLiteral( "Server" ) )
+  QgsMessageLog::logMessage( QStringLiteral( "Service URL %1" ).arg( service ), "qgsserverprojectutils", QgsMessageLog::INFO )
+  QgsMessageLog::logMessage( QStringLiteral( "Service URL %1" ).arg( service ), QStringLiteral( "Server" ) )
   const QString serviceUpper = service.toUpper();
   QString url = settings.serviceUrl( serviceUpper );
   if ( ! url.isEmpty() )
   {
-    QgsMessageLog::logMessage( QStringLiteral( "Service URL %1 from settings" ).arg( &service ), "qgsserverprojectutils", QgsMessageLog::INFO )
+    QgsMessageLog::logMessage( QStringLiteral( "Service URL %1 from settings" ).arg( service ), "qgsserverprojectutils", QgsMessageLog::INFO )
     return url;
   }
 
