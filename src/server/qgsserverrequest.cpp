@@ -24,16 +24,7 @@
 
 QgsServerRequest::QgsServerRequest( )
 {
-  mRequestHeaderConv.insert( HOST, QStringLiteral( "Host" ) );
-  mRequestHeaderConv.insert( FORWARDED, QStringLiteral( "Forwarded" ) );
-  mRequestHeaderConv.insert( X_FORWARDED_FOR, QStringLiteral( "X-Forwarded-For" ) );
-  mRequestHeaderConv.insert( X_FORWARDED_HOST, QStringLiteral( "X-Forwarded-Host" ) );
-  mRequestHeaderConv.insert( X_FORWARDED_PROTO, QStringLiteral( "X-Forwarded-Proto" ) );
-  mRequestHeaderConv.insert( X_QGIS_SERVICE_URL, QStringLiteral( "X-Qgis-Service-Url" ) );
-  mRequestHeaderConv.insert( X_QGIS_WMS_SERVICE_URL, QStringLiteral( "X-Qgis-Wms-Service-Url" ) );
-  mRequestHeaderConv.insert( X_QGIS_WFS_SERVICE_URL, QStringLiteral( "X-Qgis-Wfs-Service-Url" ) );
-  mRequestHeaderConv.insert( X_QGIS_WCS_SERVICE_URL, QStringLiteral( "X-Qgis-Wcs-Service-Url" ) );
-  mRequestHeaderConv.insert( X_QGIS_WMTS_SERVICE_URL, QStringLiteral( "X-Qgis-Wmts-Service-Url" ) );
+  this->init();
 
   QgsMessageLog::logMessage( QStringLiteral( "%1" ).arg( mRequestHeaderConv.count() ), "QgsServerRequest::init -1" );
 }
@@ -45,14 +36,14 @@ QgsServerRequest::QgsServerRequest( const QString &url, Method method, const Hea
 }
 
 QgsServerRequest::QgsServerRequest( const QUrl &url, Method method, const Headers &headers )
-  : QgsServerRequest()
-  , mUrl( url )
+  : mUrl( url )
   , mOriginalUrl( url )
   , mBaseUrl( url )
   , mMethod( method )
   , mHeaders( headers )
   , mRequestHeaderConv()
 {
+  this->init();
   QgsMessageLog::logMessage( QStringLiteral( "%1" ).arg( mRequestHeaderConv.count() ), "QgsServerRequest::init 1" );
 
   mParams.load( QUrlQuery( url ) );
@@ -69,6 +60,20 @@ QgsServerRequest::QgsServerRequest( const QgsServerRequest &other )
 {
   QgsMessageLog::logMessage( QStringLiteral( "%1" ).arg( typeid( other ).name() ), "QgsServerRequest::init 2" );
   QgsMessageLog::logMessage( QStringLiteral( "%1" ).arg( mRequestHeaderConv.count() ), "QgsServerRequest::init 2" );
+}
+
+QgsServerRequest::init( )
+{
+  mRequestHeaderConv.insert( HOST, QStringLiteral( "Host" ) );
+  mRequestHeaderConv.insert( FORWARDED, QStringLiteral( "Forwarded" ) );
+  mRequestHeaderConv.insert( X_FORWARDED_FOR, QStringLiteral( "X-Forwarded-For" ) );
+  mRequestHeaderConv.insert( X_FORWARDED_HOST, QStringLiteral( "X-Forwarded-Host" ) );
+  mRequestHeaderConv.insert( X_FORWARDED_PROTO, QStringLiteral( "X-Forwarded-Proto" ) );
+  mRequestHeaderConv.insert( X_QGIS_SERVICE_URL, QStringLiteral( "X-Qgis-Service-Url" ) );
+  mRequestHeaderConv.insert( X_QGIS_WMS_SERVICE_URL, QStringLiteral( "X-Qgis-Wms-Service-Url" ) );
+  mRequestHeaderConv.insert( X_QGIS_WFS_SERVICE_URL, QStringLiteral( "X-Qgis-Wfs-Service-Url" ) );
+  mRequestHeaderConv.insert( X_QGIS_WCS_SERVICE_URL, QStringLiteral( "X-Qgis-Wcs-Service-Url" ) );
+  mRequestHeaderConv.insert( X_QGIS_WMTS_SERVICE_URL, QStringLiteral( "X-Qgis-Wmts-Service-Url" ) );
 }
 
 QString QgsServerRequest::methodToString( const QgsServerRequest::Method &method )

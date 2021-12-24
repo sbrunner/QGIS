@@ -260,6 +260,12 @@ class SERVER_EXPORT QgsServerRequest
     void setBaseUrl( const QUrl &url );
 
   private:
+
+    /**
+     * Initialise the mRequestHeaderConv content
+     */
+    void init();
+
     // Url as seen by QGIS server after web server rewrite
     QUrl       mUrl;
     // Unrewritten url as seen by the web server
