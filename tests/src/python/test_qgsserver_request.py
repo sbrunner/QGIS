@@ -217,13 +217,30 @@ class QgsServerRequestTest(QgsServerTestBase):
 
     def test_headers(self):
         """Tests that the headers are working in Fcgi mode"""
-        os.environ["HTTP_HOST"] = "example.com"
-        request = QgsFcgiServerRequest()
-        self.assertEquals(request.header("Host"), "example.com")
-        request = QgsServerRequest(request)
-        self.assertEquals(request.header("Host"), "example.com")
-        self.assertEquals(request.header(QgsServerRequest.HOST), "example.com")
-        del os.environ["HTTP_HOST"]
+        for header, env, enum, value in (
+            ("Host", "HTTP_HOST", QgsServerRequest.HOST, "example.com"),
+            ("Forwarded", "HTTP_FORWARDED", QgsServerRequest.FORWARDED, "a"),
+            ("X-Forwarded-For", "HTTP_X_FORWARDED_FOR", QgsServerRequest.X_FORWARDED_FOR, "b"),
+            ("X-Forwarded-Host", "HTTP_X_FORWARDED_HOST", QgsServerRequest.X_FORWARDED_HOST, "c"),
+            ("X-Forwarded-Proto", "HTTP_X_FORWARDED_PROTO", QgsServerRequest.X_FORWARDED_PROTO, "d"),
+            ("X-Qgis-Service-Url", "HTTP_X_QGIS_SERVICE_URL", QgsServerRequest.X_QGIS_SERVICE_URL, "e"),
+            ("X-Qgis-Wms-Service-Url", "HTTP_X_QGIS_WMS_SERVICE_URL", QgsServerRequest.X_QGIS_WMS_SERVICE_URL, "f"),
+            ("X-Qgis-Wfs-Service-Url", "HTTP_X_QGIS_WFS_SERVICE_URL", QgsServerRequest.X_QGIS_WFS_SERVICE_URL, "g"),
+            ("X-Qgis-Wcs-Service-Url", "HTTP_X_QGIS_WCS_SERVICE_URL", QgsServerRequest.X_QGIS_WCS_SERVICE_URL, "h"),
+            ("X-Qgis-Wmts-Service-Url", "HTTP_X_QGIS_WMTS_SERVICE_URL", QgsServerRequest.X_QGIS_WMTS_SERVICE_URL, "i"),
+            ("Accept", "HTTP_ACCEPT", QgsServerRequest.ACCEPT, "j"),
+            ("User-Agent", "HTTP_USER_AGENT", QgsServerRequest.USER_AGENT, "k"),
+            ("Authorization", "HTTP_AUTHORIZATION", QgsServerRequest.AUTHORIZATION, "l"),
+        ):
+            try:
+                os.environ[env] = value
+                request = QgsFcgiServerRequest()
+                self.assertEquals(request.headers(), {header: value})
+                request = QgsServerRequest(request)
+                self.assertEquals(request.headers(), {header: value})
+                self.assertEquals(request.header(enum), value)
+            finally:
+                del os.environ[env]
 
 
 if __name__ == '__main__':
