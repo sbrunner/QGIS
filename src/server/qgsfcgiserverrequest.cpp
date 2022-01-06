@@ -108,6 +108,10 @@ QgsFcgiServerRequest::QgsFcgiServerRequest()
   setMethod( method );
 
   // Fill the headers dictionary
+
+  QgsMessageLog::logMessage( QStringLiteral( "Headers" ), QStringLiteral( "Server" ), Qgis::MessageLevel::Info );
+  QgsMessageLog::logMessage( qgetenv( "HTTP_FORWARDED" ), QStringLiteral( "Server" ), Qgis::MessageLevel::Info );
+  QgsMessageLog::logMessage( getenv( "HTTP_FORWARDED" ), QStringLiteral( "Server" ), Qgis::MessageLevel::Info );
   for ( const auto &headerKey : qgsEnumMap<QgsServerRequest::RequestHeader>().values() )
   {
     const QString headerName = QgsStringUtils::capitalize(
