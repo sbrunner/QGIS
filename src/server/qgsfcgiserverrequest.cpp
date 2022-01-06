@@ -117,7 +117,10 @@ QgsFcgiServerRequest::QgsFcgiServerRequest()
     const QString headerName = QgsStringUtils::capitalize(
                                  QString( headerKey ).replace( QLatin1Char( '_' ), QLatin1Char( ' ' ) ), Qgis::Capitalization::TitleCase
                                ).replace( QLatin1Char( ' ' ), QLatin1Char( '-' ) );
-    const char *result = qgetenv( QStringLiteral( "HTTP_%1" ).arg( headerKey ).toStdString().c_str() );
+    QgsMessageLog::logMessage( QStringLiteral( "HTTP_%1" ).arg( headerKey ).toStdString().c_str(), QStringLiteral( "Server" ), Qgis::MessageLevel::Info );
+    QgsMessageLog::logMessage( qgetenv( QStringLiteral( "HTTP_%1" ).arg( headerKey ).toStdString().c_str() ), QStringLiteral( "Server" ), Qgis::MessageLevel::Info );
+    QgsMessageLog::logMessage( getenv( QStringLiteral( "HTTP_%1" ).arg( headerKey ).toStdString().c_str() ), QStringLiteral( "Server" ), Qgis::MessageLevel::Info );
+    const char *result = getenv( QStringLiteral( "HTTP_%1" ).arg( headerKey ).toStdString().c_str() );
     if ( result && strlen( result ) > 0 )
     {
       setHeader( headerName, result );
