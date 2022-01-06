@@ -355,21 +355,21 @@ QString QgsServerProjectUtils::serviceUrl( const QString &service, const QgsServ
   QString proto;
   QString host;
 
-  QString  forwarded = request.header( QgsServerRequest::FORWARDED );
+  QString forwarded = request.header( QgsServerRequest::FORWARDED );
   if ( ! forwarded.isEmpty() )
   {
     forwarded = forwarded.split( QLatin1Char( ',' ) )[0];
     const QStringList elements = forwarded.split( ';' );
     for ( const QString &element : elements )
     {
-      QStringList splited_element = element.trimmed().split( QLatin1Char( '=' ) );
-      if ( splited_element[0] == "host" )
+      QStringList splitted_element = element.trimmed().split( QLatin1Char( '=' ) );
+      if ( splitted_element[0] == "host" )
       {
-        host = splited_element[1];
+        host = splitted_element[1];
       }
-      if ( splited_element[0] == "proto" )
+      if ( splitted_element[0] == "proto" )
       {
-        proto = splited_element[1];
+        proto = splitted_element[1];
       }
     }
   }
