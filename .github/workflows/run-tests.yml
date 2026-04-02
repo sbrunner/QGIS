@@ -37,6 +37,7 @@ jobs:
       RUN_FLAKY_TESTS: ${{ contains( github.event.pull_request.labels.*.name, 'run flaky tests') }}
 
     runs-on: ubuntu-latest
+    timeout-minutes: 600
     continue-on-error: ${{ matrix.experimental }}
 
     strategy:
@@ -258,6 +259,7 @@ jobs:
       QGIS_WORKSPACE: ${{ github.workspace }} # used in docker compose
 
     runs-on: ubuntu-latest
+    timeout-minutes: 600
 
     needs: build
     if: always()
@@ -430,6 +432,7 @@ jobs:
   clang-tidy:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
+    timeout-minutes: 600
     needs: build
 
     strategy:
