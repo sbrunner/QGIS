@@ -99,6 +99,53 @@ class TestQgsServerProjectUtils(unittest.TestCase):
         service_url = QgsServerProjectUtils.serviceUrl("WFS", request, settings)
         self.assertEqual(service_url, "http://localhost:8080/?MAP=/mAp.qgs")
 
+    def test_ogcapi_service_url_env_var(self):
+        """Test that QGIS_SERVER_OGCAPI_SERVICE_URL env var is used for OGCAPI service URL"""
+
+        settings = QgsServerSettings()
+        request = QgsBufferServerRequest("http://localhost:8080/?MAP=/my.qgs")
+
+        with mock.patch.dict(
+            os.environ, {"QGIS_SERVER_OGCAPI_SERVICE_URL": "https://ogcapi.example.com/"}
+        ):
+            settings.load()
+            service_url = QgsServerProjectUtils.serviceUrl("OGCAPI", request, settings)
+            self.assertEqual(service_url, "https://ogcapi.example.com/")
+
+    def test_ogcapi_service_url_fallback_to_generic(self):
+        """Test that QGIS_SERVER_SERVICE_URL is used as fallback for OGCAPI"""
+
+        settings = QgsServerSettings()
+        request = QgsBufferServerRequest("http://localhost:8080/?MAP=/my.qgs")
+
+        with mock.patch.dict(
+            os.environ, {"QGIS_SERVER_SERVICE_URL": "https://generic.example.com/"}
+        ):
+            settings.load()
+            service_url = QgsServerProjectUtils.serviceUrl("OGCAPI", request, settings)
+            self.assertEqual(service_url, "https://generic.example.com/")
+
+    def test_ogcapi_service_url_header(self):
+        """Test that X-Qgis-Ogcapi-Service-Url HTTP header is used for OGCAPI service URL"""
+
+        settings = QgsServerSettings()
+        request = QgsBufferServerRequest(
+            "http://localhost:8080/?MAP=/my.qgs",
+            headers={"X-Qgis-Ogcapi-Service-Url": "https://header.example.com/ogcapi"},
+        )
+        service_url = QgsServerProjectUtils.serviceUrl("OGCAPI", request, settings)
+        self.assertEqual(service_url, "https://header.example.com/ogcapi")
+
+    def test_ogcapi_project_utils_service_url(self):
+        """Test ogcApiServiceUrl reads from project entry OGCAPIUrl"""
+
+        prj = QgsProject()
+        prj.writeEntry("OGCAPIUrl", "/", "https://project.example.com/ogcapi")
+        settings = QgsServerSettings()
+        request = QgsBufferServerRequest("http://localhost:8080/?MAP=/my.qgs")
+        service_url = QgsServerProjectUtils.ogcApiServiceUrl(prj, request, settings)
+        self.assertEqual(service_url, "https://project.example.com/ogcapi")
+
 
 if __name__ == "__main__":
     unittest.main()

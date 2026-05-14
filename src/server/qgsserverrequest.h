@@ -71,6 +71,7 @@ class SERVER_EXPORT QgsServerRequest
       X_QGIS_WFS_SERVICE_URL,  //!< The QGIS WFS service URL
       X_QGIS_WCS_SERVICE_URL,  //!< The QGIS WCS service URL
       X_QGIS_WMTS_SERVICE_URL, //!< The QGIS WMTS service URL
+      X_QGIS_OGCAPI_SERVICE_URL, //!< The QGIS OGCAPI service URL \since QGIS 3.46
       ACCEPT,                  //!< Https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept
       USER_AGENT,              //!< Https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent
       AUTHORIZATION,           //!< Https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization

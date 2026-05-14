@@ -308,6 +308,13 @@ void QgsServerSettings::initSettings()
     mSettings[sWmtsServiceUrl.envVar] = sWmtsServiceUrl;
   }
 
+  // the default OGCAPI service URL.
+  {
+    const Setting sOgcApiServiceUrl
+      = { QgsServerSettingsEnv::QGIS_SERVER_OGCAPI_SERVICE_URL, QgsServerSettingsEnv::DEFAULT_VALUE, u"The default OGCAPI service URL"_s, u"/qgis/server_ogcapi_service_url"_s, QMetaType::Type::QString, QVariant( "" ), QVariant() };
+    mSettings[sOgcApiServiceUrl.envVar] = sOgcApiServiceUrl;
+  }
+
   // the default config cache check interval
   {
     const Setting sConfigCacheCheckInterval = {
@@ -661,6 +668,10 @@ QString QgsServerSettings::serviceUrl( const QString &service ) const
   else if ( service.compare( "WMTS"_L1, Qt::CaseInsensitive ) == 0 )
   {
     result = value( QgsServerSettingsEnv::QGIS_SERVER_WMTS_SERVICE_URL ).toString();
+  }
+  else if ( service.compare( "OGCAPI"_L1, Qt::CaseInsensitive ) == 0 || service.compare( "WFS3"_L1, Qt::CaseInsensitive ) == 0 )
+  {
+    result = value( QgsServerSettingsEnv::QGIS_SERVER_OGCAPI_SERVICE_URL ).toString();
   }
 
   if ( result.isEmpty() )

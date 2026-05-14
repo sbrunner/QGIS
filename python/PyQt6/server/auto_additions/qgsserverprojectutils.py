@@ -54,6 +54,7 @@ try:
     QgsServerProjectUtils.wcsServiceUrl = staticmethod(QgsServerProjectUtils.wcsServiceUrl)
     QgsServerProjectUtils.wcsLayerIds = staticmethod(QgsServerProjectUtils.wcsLayerIds)
     QgsServerProjectUtils.wmtsServiceUrl = staticmethod(QgsServerProjectUtils.wmtsServiceUrl)
+    QgsServerProjectUtils.ogcApiServiceUrl = staticmethod(QgsServerProjectUtils.ogcApiServiceUrl)
     QgsServerProjectUtils.serviceUrl = staticmethod(QgsServerProjectUtils.serviceUrl)
 except (NameError, AttributeError):
     pass

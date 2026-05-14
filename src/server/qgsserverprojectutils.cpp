@@ -370,6 +370,10 @@ QString QgsServerProjectUtils::serviceUrl( const QString &service, const QgsServ
   {
     header = QgsServerRequest::RequestHeader::X_QGIS_WMTS_SERVICE_URL;
   }
+  else if ( serviceUpper == "OGCAPI"_L1 || serviceUpper == "WFS3"_L1 )
+  {
+    header = QgsServerRequest::RequestHeader::X_QGIS_OGCAPI_SERVICE_URL;
+  }
   url = request.header( header );
   if ( !url.isEmpty() )
   {
@@ -554,6 +558,16 @@ QString QgsServerProjectUtils::wmtsServiceUrl( const QgsProject &project, const 
   if ( url.isEmpty() )
   {
     url = serviceUrl( u"WMTS"_s, request, settings );
+  }
+  return url;
+}
+
+QString QgsServerProjectUtils::ogcApiServiceUrl( const QgsProject &project, const QgsServerRequest &request, const QgsServerSettings &settings )
+{
+  QString url = project.readEntry( u"OGCAPIUrl"_s, u"/"_s, "" );
+  if ( url.isEmpty() )
+  {
+    url = serviceUrl( u"OGCAPI"_s, request, settings );
   }
   return url;
 }

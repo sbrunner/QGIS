@@ -83,7 +83,24 @@ void QgsWfs3APIHandler::handleRequest( const QgsServerApiContext &context ) cons
             { "name", "" } // TODO: license
           } },
         { "version", mApi->version().toStdString() } } },
-    { "servers", { { { "url", parentLink( context.request()->url(), 1 ).toStdString() } } } }
+    { "servers",
+      { { { "url", [&]() -> std::string {
+              // Use configured service URL as base if available (env var, HTTP header, or project setting)
+              QUrl requestUrl = context.request()->url();
+              const QgsServerSettings *settings = context.serverInterface() ? context.serverInterface()->serverSettings() : nullptr;
+              if ( settings )
+              {
+                const QString serviceUrl = QgsServerProjectUtils::ogcApiServiceUrl( *context.project(), *context.request(), *settings );
+                if ( !serviceUrl.isEmpty() )
+                {
+                  const QUrl serviceQUrl { serviceUrl };
+                  requestUrl.setScheme( serviceQUrl.scheme() );
+                  requestUrl.setHost( serviceQUrl.host() );
+                  requestUrl.setPort( serviceQUrl.port() );
+                }
+              }
+              return parentLink( requestUrl, 1 ).toStdString();
+            }() } } } }
   };
 
   // Add links only if not OPENAPI3 to avoid validation errors

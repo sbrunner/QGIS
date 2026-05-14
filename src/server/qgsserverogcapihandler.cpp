@@ -24,6 +24,7 @@
 #include "qgsproject.h"
 #include "qgsserverapiutils.h"
 #include "qgsserverinterface.h"
+#include "qgsserverprojectutils.h"
 #include "qgsserverresponse.h"
 #include "qgsvectorlayer.h"
 
@@ -139,6 +140,24 @@ void QgsServerOgcApiHandler::write( QVariant &data, const QgsServerApiContext &c
 std::string QgsServerOgcApiHandler::href( const QgsServerApiContext &context, const QString &extraPath, const QString &extension ) const
 {
   QUrl url { context.request()->url() };
+
+  // Use configured service URL as base if available (env var, HTTP header, or project setting)
+  const QgsProject *project = context.project();
+  const QgsServerSettings *settings = context.serverInterface() ? context.serverInterface()->serverSettings() : nullptr;
+  if ( settings )
+  {
+    const QString serviceUrl = project
+                               ? QgsServerProjectUtils::ogcApiServiceUrl( *project, *context.request(), *settings )
+                               : QgsServerProjectUtils::serviceUrl( u"OGCAPI"_s, *context.request(), *settings );
+    if ( !serviceUrl.isEmpty() )
+    {
+      const QUrl serviceQUrl { serviceUrl };
+      url.setScheme( serviceQUrl.scheme() );
+      url.setHost( serviceQUrl.host() );
+      url.setPort( serviceQUrl.port() );
+    }
+  }
+
   QString urlBasePath { context.matchedPath() };
   const auto match { path().match( QgsServerOgcApi::sanitizeUrl( context.handlerPath() ).path() ) };
   if ( match.captured().count() > 0 )

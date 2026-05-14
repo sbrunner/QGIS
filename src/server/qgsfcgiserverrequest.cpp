@@ -255,6 +255,7 @@ void QgsFcgiServerRequest::printRequestInfos( const QUrl &url ) const
     u"QGIS_SERVER_WFS_SERVICE_URL"_s,
     u"QGIS_SERVER_WMTS_SERVICE_URL"_s,
     u"QGIS_SERVER_WCS_SERVICE_URL"_s,
+    u"QGIS_SERVER_OGCAPI_SERVICE_URL"_s,
     u"SERVER_PROTOCOL"_s
   };
 
