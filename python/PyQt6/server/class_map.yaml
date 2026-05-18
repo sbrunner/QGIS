@@ -314,7 +314,6 @@ QgsServerProjectUtils.wmsSkipNameForGroup: src/server/qgsserverprojectutils.h#L2
 QgsServerProjectUtils.wmsTileBuffer: src/server/qgsserverprojectutils.h#L167
 QgsServerProjectUtils.wmsUseLayerIds: src/server/qgsserverprojectutils.h#L203
 QgsServerProjectUtils.wmtsServiceUrl: src/server/qgsserverprojectutils.h#L465
-QgsServerProjectUtils.ogcApiServiceUrl: src/server/qgsserverprojectutils.h#L477
 QgsServerProjectUtils: src/server/qgsserverprojectutils.h#L39
 QgsServerQueryStringParameter.description: src/server/qgsserverquerystringparameter.h#L121
 QgsServerQueryStringParameter.hidden: src/server/qgsserverquerystringparameter.h#L146

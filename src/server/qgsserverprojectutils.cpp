@@ -562,16 +562,6 @@ QString QgsServerProjectUtils::wmtsServiceUrl( const QgsProject &project, const 
   return url;
 }
 
-QString QgsServerProjectUtils::ogcApiServiceUrl( const QgsProject &project, const QgsServerRequest &request, const QgsServerSettings &settings )
-{
-  QString url = project.readEntry( u"OGCAPIUrl"_s, u"/"_s, "" );
-  if ( url.isEmpty() )
-  {
-    url = serviceUrl( u"OGCAPI"_s, request, settings );
-  }
-  return url;
-}
-
 bool QgsServerProjectUtils::wmsRenderMapTiles( const QgsProject &project )
 {
   return project.readBoolEntry( u"RenderMapTile"_s, u"/"_s, false );

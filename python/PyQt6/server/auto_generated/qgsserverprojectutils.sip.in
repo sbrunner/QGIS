@@ -567,23 +567,6 @@ defined the URL from serviceUrl.
 .. versionadded:: 3.4
 %End
 
-    static QString ogcApiServiceUrl( const QgsProject &project, const QgsServerRequest &request = QgsServerRequest(), const QgsServerSettings &settings = QgsServerSettings() );
-%Docstring
-Returns the OGCAPI service url. The URL defined in the project entry
-``OGCAPIUrl`` or if not defined the URL from the
-``QGIS_SERVER_OGCAPI_SERVICE_URL`` environment variable, the
-``X-Qgis-Ogcapi-Service-Url`` HTTP header, or the generic service URL
-resolution.
-
-:param project: the QGIS project
-:param request: the request
-:param settings: the server settings
-
-:return: url to use for OGCAPI
-
-.. versionadded:: 3.46
-%End
-
     static QString serviceUrl( const QString &service, const QgsServerRequest &request, const QgsServerSettings &settings );
 %Docstring
 Returns the service url defined in the environment variable or with HTTP

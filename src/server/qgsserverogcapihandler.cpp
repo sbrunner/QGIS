@@ -142,13 +142,10 @@ std::string QgsServerOgcApiHandler::href( const QgsServerApiContext &context, co
   QUrl url { context.request()->url() };
 
   // Use configured service URL as base if available (env var, HTTP header, or project setting)
-  const QgsProject *project = context.project();
   const QgsServerSettings *settings = context.serverInterface() ? context.serverInterface()->serverSettings() : nullptr;
   if ( settings )
   {
-    const QString serviceUrl = project
-                               ? QgsServerProjectUtils::ogcApiServiceUrl( *project, *context.request(), *settings )
-                               : QgsServerProjectUtils::serviceUrl( u"OGCAPI"_s, *context.request(), *settings );
+    const QString serviceUrl = QgsServerProjectUtils::serviceUrl( u"OGCAPI"_s, *context.request(), *settings );
     if ( !serviceUrl.isEmpty() )
     {
       const QUrl serviceQUrl { serviceUrl };

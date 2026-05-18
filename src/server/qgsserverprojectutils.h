@@ -465,18 +465,6 @@ class SERVER_EXPORT QgsServerProjectUtils
     static QString wmtsServiceUrl( const QgsProject &project, const QgsServerRequest &request = QgsServerRequest(), const QgsServerSettings &settings = QgsServerSettings() );
 
     /**
-   * Returns the OGCAPI service url defined in the project or with the ``QGIS_SERVER_OGCAPI_SERVICE_URL``
-   * environment variable or the ``X-Qgis-Ogcapi-Service-Url`` HTTP header.
-   *
-   * \param project the project
-   * \param request the request
-   * \param settings the server settings
-   * \returns url to use for OGCAPI
-   * \since QGIS 3.46
-   */
-    static QString ogcApiServiceUrl( const QgsProject &project, const QgsServerRequest &request = QgsServerRequest(), const QgsServerSettings &settings = QgsServerSettings() );
-
-    /**
    * Returns the service url defined in the environment variable or with HTTP header.
    * This is calculated from (in order of precedence):
    *

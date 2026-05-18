@@ -90,7 +90,7 @@ void QgsWfs3APIHandler::handleRequest( const QgsServerApiContext &context ) cons
               const QgsServerSettings *settings = context.serverInterface() ? context.serverInterface()->serverSettings() : nullptr;
               if ( settings )
               {
-                const QString serviceUrl = QgsServerProjectUtils::ogcApiServiceUrl( *context.project(), *context.request(), *settings );
+                const QString serviceUrl = QgsServerProjectUtils::serviceUrl( u"OGCAPI"_s, *context.request(), *settings );
                 if ( !serviceUrl.isEmpty() )
                 {
                   const QUrl serviceQUrl { serviceUrl };
