@@ -137,11 +137,9 @@ void QgsServerOgcApiHandler::write( QVariant &data, const QgsServerApiContext &c
   QgsServerOgcApiHandler::write( j, context, jm );
 }
 
-std::string QgsServerOgcApiHandler::href( const QgsServerApiContext &context, const QString &extraPath, const QString &extension ) const
+QUrl QgsServerOgcApiHandler::baseUrl( const QgsServerApiContext &context )
 {
   QUrl url { context.request()->url() };
-
-  // Use configured service URL as base if available (env var, HTTP header, or project setting)
   const QgsServerSettings *settings = context.serverInterface() ? context.serverInterface()->serverSettings() : nullptr;
   if ( settings )
   {
@@ -154,7 +152,12 @@ std::string QgsServerOgcApiHandler::href( const QgsServerApiContext &context, co
       url.setPort( serviceQUrl.port() );
     }
   }
+  return url;
+}
 
+std::string QgsServerOgcApiHandler::href( const QgsServerApiContext &context, const QString &extraPath, const QString &extension ) const
+{
+  QUrl url { baseUrl( context ) };
   QString urlBasePath { context.matchedPath() };
   const auto match { path().match( QgsServerOgcApi::sanitizeUrl( context.handlerPath() ).path() ) };
   if ( match.captured().count() > 0 )
@@ -303,7 +306,7 @@ void QgsServerOgcApiHandler::htmlDump( const json &data, const QgsServerApiConte
 
     // Path manipulation: appends a directory path to the current url
     env.add_callback( "path_append", 1, [context]( Arguments &args ) {
-      auto url { context.request()->url() };
+      auto url { QgsServerOgcApiHandler::baseUrl( context ) };
       QFileInfo fi { url.path() };
       auto suffix { fi.suffix() };
       auto fName { fi.filePath() };

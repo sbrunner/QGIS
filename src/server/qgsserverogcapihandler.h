@@ -364,6 +364,15 @@ class SERVER_EXPORT QgsServerOgcApiHandler
     static QString parentLink( const QUrl &url, int levels = 1 );
 
     /**
+     * Returns the base URL for the given \a context, with scheme, host and port overridden
+     * from the configured OGCAPI service URL (environment variable, HTTP header or project setting)
+     * if available. This should be used instead of \c context.request()->url() when building
+     * navigation and pagination links.
+     * \since QGIS 3.46
+     */
+    static QUrl baseUrl( const QgsServerApiContext &context );
+
+    /**
      * Returns a vector layer from the \a collectionId in the given \a context.
      * \throws QgsServerApiNotFoundError if the layer could not be found.
      */

@@ -83,24 +83,7 @@ void QgsWfs3APIHandler::handleRequest( const QgsServerApiContext &context ) cons
             { "name", "" } // TODO: license
           } },
         { "version", mApi->version().toStdString() } } },
-    { "servers",
-      { { { "url", [&]() -> std::string {
-              // Use configured service URL as base if available (env var, HTTP header, or project setting)
-              QUrl requestUrl = context.request()->url();
-              const QgsServerSettings *settings = context.serverInterface() ? context.serverInterface()->serverSettings() : nullptr;
-              if ( settings )
-              {
-                const QString serviceUrl = QgsServerProjectUtils::serviceUrl( u"OGCAPI"_s, *context.request(), *settings );
-                if ( !serviceUrl.isEmpty() )
-                {
-                  const QUrl serviceQUrl { serviceUrl };
-                  requestUrl.setScheme( serviceQUrl.scheme() );
-                  requestUrl.setHost( serviceQUrl.host() );
-                  requestUrl.setPort( serviceQUrl.port() );
-                }
-              }
-              return parentLink( requestUrl, 1 ).toStdString();
-            }() } } } }
+    { "servers", { { { "url", parentLink( QgsServerOgcApiHandler::baseUrl( context ), 1 ).toStdString() } } } }
   };
 
   // Add links only if not OPENAPI3 to avoid validation errors
@@ -147,7 +130,7 @@ void QgsWfs3APIHandler::handleRequest( const QgsServerApiContext &context ) cons
 
   // Add schema refs
   json navigation = json::array();
-  const QUrl url { context.request()->url() };
+  const QUrl url { QgsServerOgcApiHandler::baseUrl( context ) };
   navigation.push_back( { { "title", "Landing page" }, { "href", parentLink( url, 1 ).toStdString() } } );
   write( data, context, { { "pageTitle", linkTitle() }, { "navigation", navigation } } );
 }
@@ -381,7 +364,7 @@ void QgsWfs3ConformanceHandler::handleRequest( const QgsServerApiContext &contex
         "http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/geojson" } }
   };
   json navigation = json::array();
-  const QUrl url { context.request()->url() };
+  const QUrl url { QgsServerOgcApiHandler::baseUrl( context ) };
   navigation.push_back( { { "title", "Landing page" }, { "href", parentLink( url, 1 ).toStdString() } } );
   write( data, context, { { "pageTitle", linkTitle() }, { "navigation", navigation } } );
 }
@@ -496,7 +479,7 @@ void QgsWfs3CollectionsHandler::handleRequest( const QgsServerApiContext &contex
   }
 
   json navigation = json::array();
-  const QUrl url { context.request()->url() };
+  const QUrl url { QgsServerOgcApiHandler::baseUrl( context ) };
   navigation.push_back( { { "title", "Landing page" }, { "href", parentLink( url, 1 ).toStdString() } } );
   write( data, context, { { "pageTitle", linkTitle() }, { "navigation", navigation } } );
 }
@@ -572,7 +555,7 @@ void QgsWfs3DescribeCollectionHandler::handleRequest( const QgsServerApiContext 
 
   linksList.push_back(
     { { "href",
-        parentLink( context.request()->url(), 3 ).toStdString() + "?request=DescribeFeatureType&typename=" + QUrlQuery( typeName ).toString( QUrl::EncodeSpaces ).toStdString() + "&service=WFS&version=2.0" },
+        parentLink( QgsServerOgcApiHandler::baseUrl( context ), 3 ).toStdString() + "?request=DescribeFeatureType&typename=" + QUrlQuery( typeName ).toString( QUrl::EncodeSpaces ).toStdString() + "&service=WFS&version=2.0" },
       { "rel", QgsServerOgcApi::relToString( QgsServerOgcApi::Rel::describedBy ) },
       { "type", QgsServerOgcApi::mimeType( QgsServerOgcApi::ContentType::XML ) },
       { "title", "Schema for " + title } }
@@ -604,7 +587,7 @@ void QgsWfs3DescribeCollectionHandler::handleRequest( const QgsServerApiContext 
     { "links", linksList }
   };
   json navigation = json::array();
-  const QUrl url { context.request()->url() };
+  const QUrl url { QgsServerOgcApiHandler::baseUrl( context ) };
   navigation.push_back( { { "title", "Landing page" }, { "href", parentLink( url, 2 ).toStdString() } } );
   navigation.push_back( { { "title", "Collections" }, { "href", parentLink( url, 1 ).toStdString() } } );
   write( data, context, { { "pageTitle", title }, { "navigation", navigation } } );
@@ -1185,7 +1168,7 @@ void QgsWfs3CollectionsItemsHandler::handleRequest( const QgsServerApiContext &c
       data["links"] = links( context );
 
       // Current url
-      const QUrl url { context.request()->url() };
+      const QUrl url { QgsServerOgcApiHandler::baseUrl( context ) };
 
       // Url without offset and limit
       QUrl cleanedUrl { url };
@@ -1489,7 +1472,7 @@ void QgsWfs3CollectionsItemsHandler::handleRequest( const QgsServerApiContext &c
         context.response()->setStatusCode( 201 );
         context.response()->setHeader( u"Content-Type"_s, u"application/geo+json"_s );
 
-        QUrl collectionUrl { context.request()->url() };
+        QUrl collectionUrl { QgsServerOgcApiHandler::baseUrl( context ) };
         // Remove query and fragment
         collectionUrl.setQuery( QString() );
         collectionUrl.setFragment( QString() );
@@ -1618,7 +1601,7 @@ void QgsWfs3CollectionsFeatureHandler::handleRequest( const QgsServerApiContext 
     data["id"] = featureId.toStdString();
     data["links"] = links( context );
     json navigation = json::array();
-    const QUrl url { context.request()->url() };
+    const QUrl url { QgsServerOgcApiHandler::baseUrl( context ) };
     navigation.push_back( { { "title", "Landing page" }, { "href", parentLink( url, 4 ).toStdString() } } );
     navigation.push_back( { { "title", "Collections" }, { "href", parentLink( url, 3 ).toStdString() } } );
     navigation.push_back( { { "title", title }, { "href", parentLink( url, 2 ).toStdString() } } );
