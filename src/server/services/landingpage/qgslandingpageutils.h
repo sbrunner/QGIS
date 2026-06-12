@@ -23,6 +23,7 @@
 
 #include <QMap>
 #include <QRegularExpression>
+#include <QSet>
 #include <QStringList>
 
 #ifndef SIP_RUN
@@ -30,6 +31,7 @@ using namespace nlohmann;
 #endif
 
 class QgsProject;
+class QgsServerInterface;
 
 /**
  * The QgsLandingPageUtils struct contains static utilities for the
@@ -52,12 +54,12 @@ struct QgsLandingPageUtils
     /**
    * Returns project information for a given \a projectPath, optional \a serverSettings and \a request
    */
-    static json projectInfo( const QString &projectPath, const QgsServerSettings *serverSettings = nullptr, const QgsServerRequest &request = QgsServerRequest() );
+    static json projectInfo( const QString &projectPath, const QgsServerSettings *serverSettings = nullptr, const QgsServerRequest &request = QgsServerRequest(), const QgsServerInterface *serverInterface = nullptr );
 
     /**
    * Returns the layer tree information for the given \a project
    */
-    static json layerTree( const QgsProject &project, const QStringList &wmsLayersQueryable, const QStringList &wmsLayersSearchable, const QStringList &wmsRestrictedLayers );
+    static json layerTree( const QgsProject &project, const QStringList &wmsLayersQueryable, const QStringList &wmsLayersSearchable, const QStringList &wmsRestrictedLayers, const QSet<QString> &allowedLayerIds, const QStringList &wfsLayerIds );
 
     /**
    * Extracts the project hash from the URL and returns the (possibly empty) project path.
